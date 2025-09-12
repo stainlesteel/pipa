@@ -2,10 +2,18 @@ import subprocess
 
 class pip_api:
     def __init__(self):
+        self.quiet_output = False
         return None
     
-    @staticmethod
-    def install(package_name=None, from_filepath=None, upgrade=None, py_version=None):
+    def process_run(self, args, capture=None):
+        kwargs = {'check': True}
+        if capture:
+            kwargs.update({'capture_output': True})
+            call = subprocess.run(args, **kwargs)
+            return call.stdout
+        else:
+            subprocess.run(args, **kwargs)
+    def install(self, package_name=None, from_filepath=None, upgrade=None, py_version=None, no_cache=None, user_only=None):
         # these are basic arguments
         args = ["python3", "-m", "pip", "install"]
         # here, it checks for any optional arguments before running the basic command 
@@ -24,9 +32,21 @@ class pip_api:
         if py_version:
             args.append("--python-version")
             args.append(f"{py_version}")
-        else:
-            raise SyntaxError("Python version argument has to be a number")
 
-        subprocess.call(args)
+        if no_cache == True:
+            args.append("--no-cache-dir")
+
+        if user_only == True:
+            args.append("--user")
+
+        self.process_run(args)
+    def freeze(self):
+        args = ['python3', '-m', 'pip', 'freeze']
+
+        result = self.process_run(args, capture=True)
+        godot = result.decode('utf-8')
+        result_str = godot.replace('\n', ' \n')
+        return result_str
+
 
 
