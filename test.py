@@ -1,6 +1,6 @@
-import main as pip
+import main as pi
 
-pipk = pip.pip_api()
-pipk.quiet_output = True
-call = pipk.freeze()
-print(f'{call}')
+pip = pi.pip_api()
+
+pip.verbose = True
+call = pip.uninstall('sg_api.py', always_confirm=True)
