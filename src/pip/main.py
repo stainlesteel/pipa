@@ -1,6 +1,6 @@
 import subprocess
 
-class pip_api:
+class pip:
     def __init__(self):
         self.quiet_output = False
         self.verbose = False
@@ -30,7 +30,7 @@ class pip_api:
             return call.stdout
         else:
             subprocess.run(args, **kwargs)
-    def install(self, package_name=None, from_filepath=None, upgrade=None, py_version=None, no_cache=None, user_only=None):
+    def install(self, package_name=None, from_filepath=None, upgrade=None, py_version=None, no_cache=None, user_only=None, no_deps=None):
         # these are basic arguments
         args = ["python3", "-m", "pip", "install"]
         # here, it checks for any optional arguments before running the basic command 
@@ -43,7 +43,7 @@ class pip_api:
             else:
                 raise SyntaxError("The package name for pip cannot be anything but a string.")
         # check if user wants forced upgrade
-        if upgrade == True:
+        if upgrade:
             args.append("--upgrade")
 
         # check if user wants specific python version
@@ -52,20 +52,27 @@ class pip_api:
             args.append(f"{py_version}")
         
         # ignore available cache in system
-        if no_cache == True:
+        if no_cache:
             args.append("--no-cache-dir")
 
         # ignore system-wide libraries
-        if user_only == True:
+        if user_only:
             args.append("--user")
 
+        if no_deps:
+            args.append('--no-deps')
+
         self.process_run(args)
-    def freeze(self, user_only=None):
+    def freeze(self, user_only=None, to_file=None):
         args = ['python3', '-m', 'pip', 'freeze']
 
         # check for user-only selection to freeze
         if user_only:
             args.append('--user')
+        if to_file:
+            args.append('>')
+            args.append('requirements.txt')
+
         result = self.process_run(args, capture=True)
         godot = result.decode('utf-8')
         result_str = godot.replace('\n', ' \n')
@@ -109,6 +116,39 @@ class pip_api:
         # check if user wants to include unstable, pre-release and development packages 
         if unstable:
             args.append('--pre')
+
+        result = self.process_run(args, capture=True)
+        godot = result.decode('utf-8')
+        result_str = godot.replace('\n', ' \n')
+        return result_str
+    def show(self, package_name, show_files=None):
+        args = ['python3', '-m', 'pip', 'show']
+        
+        if show_files:
+            args.append('--files')
+
+        if isinstance(package_name, str):
+            args.append(package_name)
+        else:
+            raise SyntaxError('A package name is required for pip show.')
+
+        result = self.process_run(args, capture=True)
+        godot = result.decode('utf-8')
+        result_str = godot.replace('\n', ' \n')
+        return result_str
+    def debug(self):
+        args = ['python3', '-m', 'pip', 'debug']
+
+        self.process_run(args)
+    def inspect(self, user_only=None, path=None):
+        args = ['python3', '-m', 'pip', 'inspect']
+
+        if user_only:
+            args.append('--user')
+
+        if isinstance(path, str):
+            args.append('--path')
+            args.append(path)
 
         result = self.process_run(args, capture=True)
         godot = result.decode('utf-8')

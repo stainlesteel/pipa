@@ -1,0 +1,23 @@
+[project]
+name = "pipA"
+version = "0.1.0"
+authors = [
+  {name="stainlesteel", email="pd4500@protonmail.com"}
+]
+description = "A python wrapper for the pip module."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: Unix",
+]
+
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/stainlesteel/sg_api.py"
+Issues = "https://github.com/stainlesteel/sg_api.py/issues"
+
