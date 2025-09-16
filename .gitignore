@@ -1,4 +1,6 @@
 __pycache__/
 
 requc.txt
-
+build/
+dist/
+*.egg-info

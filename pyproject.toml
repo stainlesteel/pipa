@@ -4,12 +4,12 @@ version = "0.1.0"
 authors = [
   {name="stainlesteel", email="pd4500@protonmail.com"}
 ]
-description = "A python wrapper for the pip module."
+description = "Dead simple python wrapper for pip, the package installer for the Python Package Index."
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
   "Programming Language :: Python :: 3",
-  "License :: OSI Approved :: MIT License",
+  "License :: OSI Approved :: GNU Affero General Public License v3",
   "Operating System :: Unix",
 ]
 
@@ -18,6 +18,6 @@ requires = ["setuptools >= 77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [project.urls]
-Homepage = "https://github.com/stainlesteel/sg_api.py"
-Issues = "https://github.com/stainlesteel/sg_api.py/issues"
+Homepage = "https://github.com/stainlesteel/pipa"
+Issues = "https://github.com/stainlesteel/pipa/issues"
 
