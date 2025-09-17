@@ -6,7 +6,7 @@ cdir = os.path.dirname(os.path.abspath(__file__))
 pdir = os.path.dirname(cdir)
 sys.path.insert(0, pdir)
 
-import src.pip.main as pi 
+import src.pipa.pipa as pi 
 pip = pi.pip()
 
 def test1():
