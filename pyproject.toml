@@ -1,5 +1,5 @@
 [project]
-name = "pipA"
+name = "pipa.py"
 version = "0.1.0"
 authors = [
   {name="stainlesteel", email="pd4500@protonmail.com"}
