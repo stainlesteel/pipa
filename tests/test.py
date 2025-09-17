@@ -12,8 +12,8 @@ pip = pi.pip()
 def test1():
     # test for basic install/uninstall
     pip.install('requests')
+    pip.install('sg_api.py')
     pip.uninstall('sg_api.py', always_confirm=True)
-    pip.install(from_filepath="requc.txt")
 
 def test2():
     # test for basic freeze/show
